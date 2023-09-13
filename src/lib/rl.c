@@ -127,14 +127,13 @@ CAMLprim value caml_end_drawing(value unit)
 CAMLprim value caml_clear_background(value color)
 {
     CAMLparam1(color);
-
-    // if (Tag_val(color) == 0)
-    // {
-    //
-    // } else
-    // {
-    //
-    // }
     ClearBackground(color_of_caml(color));
+    CAMLreturn(Val_unit);
+}
+
+CAMLprim value caml_draw_text(value text, value pos_x, value pos_y, value font_size, value color)
+{
+    CAMLparam5(text, pos_x, pos_y, font_size, color);
+    DrawText(String_val(text), Int_val(pos_x), Int_val(pos_y), Int_val(font_size), color_of_caml(color));
     CAMLreturn(Val_unit);
 }
