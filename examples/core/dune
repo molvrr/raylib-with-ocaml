@@ -1,0 +1,3 @@
+(executables
+  (names basic_window keyboard_input)
+  (libraries raylib))
