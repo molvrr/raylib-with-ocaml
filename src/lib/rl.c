@@ -318,8 +318,8 @@ int key_of_ocaml(value key)
 
 Vector2 vector2_of_caml(value vector)
 {
-    float x = Double_val(Field(vector, 0));
-    float y = Double_val(Field(vector, 1));
+    float x = Double_field(vector, 0);
+    float y = Double_field(vector, 1);
     return (Vector2) { x, y };
 }
 

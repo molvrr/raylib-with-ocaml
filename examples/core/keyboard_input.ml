@@ -1,25 +1,9 @@
 open Raylib
 
-let incr_x ball =
-  match ball with
-  | Vector2 info -> info.x <- info.x +. 2.0
-;;
-
-let incr_y ball =
-  match ball with
-  | Vector2 info -> info.y <- info.y +. 2.0
-;;
-
-let decr_y ball =
-  match ball with
-  | Vector2 info -> info.y <- info.y -. 2.0
-;;
-
-let decr_x ball =
-  match ball with
-  | Vector2 info -> info.x <- info.x -. 2.0
-;;
-
+let incr_x ball = ball.x <- ball.x +. 2.0
+let incr_y ball = ball.y <- ball.y +. 2.0
+let decr_y ball = ball.y <- ball.y -. 2.0
+let decr_x ball = ball.x <- ball.x -. 2.0
 let move_right () = is_key_down Right
 let move_up () = is_key_down Up
 let move_left () = is_key_down Left
@@ -73,8 +57,7 @@ let () =
   let screen_height = 450 in
   let title = "raylib [core] example - keyboard input" in
   let ball =
-    Vector2
-      { x = float_of_int screen_width /. 2.0; y = float_of_int screen_height /. 2.0 }
+    { x = Float.of_int screen_width /. 2.0; y = Float.of_int screen_height /. 2.0 }
   in
   let () = init_window screen_width screen_height title in
   let () = set_target_fps 60 in

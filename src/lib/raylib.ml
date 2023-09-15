@@ -146,11 +146,10 @@ type log_level =
   | Warning
   | Error
 
-type vector =
-  | Vector2 of
-      { mutable x : float
-      ; mutable y : float
-      }
+type vector2 =
+  { mutable x : float
+  ; mutable y : float
+  }
 
 (* NOTE: Alterar parâmetros para parâmetros nomeados? *)
 external init_window : int -> int -> string -> unit = "caml_init_window"
@@ -163,4 +162,4 @@ external clear_background : Color.t -> unit = "caml_clear_background"
 external draw_text : string -> int -> int -> int -> Color.t -> unit = "caml_draw_text"
 external set_trace_log_level : log_level -> unit = "caml_set_trace_log_level"
 external is_key_down : key -> bool = "caml_is_key_down"
-external draw_circle_v : vector -> float -> Color.t -> unit = "caml_draw_circle_v"
+external draw_circle_v : vector2 -> float -> Color.t -> unit = "caml_draw_circle_v"
