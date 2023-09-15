@@ -5,14 +5,9 @@ let rec loop () =
   then close_window ()
   else (
     let () = begin_drawing () in
-    let () = clear_background Color.(Default White) in
+    let () = clear_background Color.white in
     let () =
-      draw_text
-        "Congrats! You created your first window!"
-        190
-        200
-        20
-        Color.(Default Lightgray)
+      draw_text "Congrats! You created your first window!" 190 200 20 Color.lightgray
     in
     let () = end_drawing () in
     loop ())

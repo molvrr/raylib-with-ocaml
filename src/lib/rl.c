@@ -4,79 +4,26 @@
 
 #include <stdio.h>
 
+int log_level_of_caml(value log_level)
+{
+    switch (Int_val(log_level))
+    {
+        case 0:
+            return LOG_DEBUG;
+        case 1:
+            return LOG_INFO;
+        case 2:
+            return LOG_WARNING;
+        case 3:
+            return LOG_ERROR;
+        default:
+            return LOG_DEBUG;
+    }
+}
+
 Color color_of_caml(value color)
 {
-    // TAG 0: DEFAULT * palette
-    if (Tag_val(color) == 0)
-    {
-        switch (Int_val(Field(color, 0)))
-        {
-            case 0:
-                return LIGHTGRAY;
-            case 1:
-                return GRAY;
-            case 2:
-                return DARKGRAY;
-            case 3:
-                return YELLOW;
-            case 4:
-                return GOLD;
-            case 5:
-                return ORANGE;
-            case 6:
-                return PINK;
-            case 7:
-                return RED;
-            case 8:
-                return MAROON;
-            case 9:
-                return GREEN;
-            case 10:
-                return LIME;
-            case 11:
-                return DARKGREEN;
-            case 12:
-                return SKYBLUE;
-            case 13:
-                return BLUE;
-            case 14:
-                return DARKBLUE;
-            case 15:
-                return PURPLE;
-            case 16:
-                return VIOLET;
-            case 17:
-                return DARKPURPLE;
-            case 18:
-                return BEIGE;
-            case 19:
-                return BROWN;
-            case 20:
-                return DARKBROWN;
-            case 21:
-                return WHITE;
-            case 22:
-                return BLACK;
-            case 23:
-                return BLANK;
-            case 24:
-                return MAGENTA;
-            case 25:
-                return RAYWHITE;
-            default:
-                return WHITE;
-        }
-    }
-    else
-    {
-        int r = Int_val(Field(color, 0));
-        int g = Int_val(Field(color, 1));
-        int b = Int_val(Field(color, 2));
-        int a = Int_val(Field(color, 3));
-
-        Color cor = { r, g, b, a };
-        return cor;
-    }
+      return (Color) { Int_val(Field(color, 0)), Int_val(Field(color, 1)), Int_val(Field(color, 2)), Int_val(Field(color, 3)) };
 }
 
 CAMLprim value caml_init_window(value width, value height, value title)
@@ -135,5 +82,12 @@ CAMLprim value caml_draw_text(value text, value pos_x, value pos_y, value font_s
 {
     CAMLparam5(text, pos_x, pos_y, font_size, color);
     DrawText(String_val(text), Int_val(pos_x), Int_val(pos_y), Int_val(font_size), color_of_caml(color));
+    CAMLreturn(Val_unit);
+}
+
+CAMLprim value caml_set_trace_log_level(value level)
+{
+    CAMLparam1(level);
+    SetTraceLogLevel(log_level_of_caml(level));
     CAMLreturn(Val_unit);
 }
